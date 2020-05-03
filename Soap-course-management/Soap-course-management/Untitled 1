@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Here we can define any kind of elements basically what ever we are writing at here tat should be
+ done by the opneing node and closing node 
+Ex: <node>
+between this we can define any other structor 
+<node1 attribute="value"> </node1>
+ </node> this closing node match the opning node 
