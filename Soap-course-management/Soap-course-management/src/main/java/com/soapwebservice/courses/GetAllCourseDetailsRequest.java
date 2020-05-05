@@ -10,7 +10,6 @@ package com.soapwebservice.courses;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,9 +23,6 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="CourseDetails" type="{http://soapwebservice.com/courses}CourseDetails"/>
- *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -35,37 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "courseDetails"
-})
-@XmlRootElement(name = "GetCourseDetailsResponse")
-public class GetCourseDetailsResponse {
+@XmlType(name = "")
+@XmlRootElement(name = "GetAllCourseDetailsRequest")
+public class GetAllCourseDetailsRequest {
 
-    @XmlElement(name = "CourseDetails", required = true)
-    protected CourseDetails courseDetails;
-
-    /**
-     * Gets the value of the courseDetails property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CourseDetails }
-     *     
-     */
-    public CourseDetails getCourseDetails() {
-        return courseDetails;
-    }
-
-    /**
-     * Sets the value of the courseDetails property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CourseDetails }
-     *     
-     */
-    public void setCourseDetails(CourseDetails value) {
-        this.courseDetails = value;
-    }
 
 }

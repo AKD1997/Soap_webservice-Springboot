@@ -1,4 +1,4 @@
-package com.soap.weservices.Soapcoursemanagement;
+package com.in28minutes.soap.webservices.soapcoursemanagement.soap;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -11,46 +11,37 @@ import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
-//Enable Spring web service
+//Enable Spring Web Services
 @EnableWs
-//Spring Configuration
+// Spring Configuration
 @Configuration
 public class WebServiceConfig {
-	// Message Dispatcher
-	// Application context
-	// Url - /ws/*
+	// MessageDispatcherServlet
+	// ApplicationContext
+	// url -> /ws/*
 
 	@Bean
 	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext context) {
-		
 		MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
 		messageDispatcherServlet.setApplicationContext(context);
 		messageDispatcherServlet.setTransformWsdlLocations(true);
-		
 		return new ServletRegistrationBean(messageDispatcherServlet, "/ws/*");
-		// Until now we are created a bean so as soon as we send a request to /ws/*
-		// It would handle the request and it will start processing the request that's
-		// what we have done until now
 	}
 
-	/// ws/courses.wsdl
+	// /ws/courses.wsdl
+	// course-details.xsd
 	@Bean(name = "courses")
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema coursesSchema) {
-		DefaultWsdl11Definition  defination = new DefaultWsdl11Definition();
-		// portType -Course port
-		defination.setPortTypeName("CoursePort");
-		// NameSpace - http://soapwebservice.com/courses
-		defination.setTargetNamespace("http://soapwebservice.com/courses");
-		// /Ws
-		defination.setLocationUri("/ws");
-		// Schema
-		defination.setSchema(coursesSchema);
-		return defination;
+		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+		definition.setPortTypeName("CoursePort");
+		definition.setTargetNamespace("http://in28minutes.com/courses");
+		definition.setLocationUri("/ws");
+		definition.setSchema(coursesSchema);
+		return definition;
 	}
 
-	// Define a Schema
 	@Bean
 	public XsdSchema coursesSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("Course-details.xsd"));
+		return new SimpleXsdSchema(new ClassPathResource("course-details.xsd"));
 	}
 }
