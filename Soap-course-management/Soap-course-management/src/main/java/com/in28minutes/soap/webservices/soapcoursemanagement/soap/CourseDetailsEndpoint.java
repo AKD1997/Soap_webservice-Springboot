@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -12,6 +11,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.soap.webservices.Soapcoursemanagement.soap.bean.Course;
 import com.soap.webservices.Soapcoursemanagement.soap.service.CourseDetailsService;
+import com.soap.webservices.Soapcoursemanagement.soap.service.CourseDetailsService.Status;
 import com.soapwebservice.courses.CourseDetails;
 import com.soapwebservice.courses.DeleteCourseDetailsRequest;
 import com.soapwebservice.courses.DeleteCourseDetailsResponse;
@@ -27,10 +27,6 @@ public class CourseDetailsEndpoint {
 	@Autowired
 	public CourseDetailsService service;
 
-	/*
-	 * @Autowired public CourseDetailsEndpoint(CourseDetailsService service) {
-	 * this.service = service; }
-	 */
 	// method
 	// input - GetCourseDetailsRequest
 	// output - GetCourseDetailsResponse
@@ -86,12 +82,19 @@ public class CourseDetailsEndpoint {
 	@ResponsePayload
 	public DeleteCourseDetailsResponse deleteCourseDetailsRequest(@RequestPayload DeleteCourseDetailsRequest request) {
 
-		int status = service.deleteById(request.getId());
+		Status status = service.deleteById(request.getId());
 
 		DeleteCourseDetailsResponse response = new DeleteCourseDetailsResponse();
-		response.setStatus(status);
+		response.setStatus(mapstatus(status));
 
 		return response;
+	}
+
+	private com.soapwebservice.courses.Status mapstatus(Status status) {
+		if(status==Status.FALUER) {
+			return com.soapwebservice.courses.Status.FALUER;
+		}
+		return com.soapwebservice.courses.Status.SUCCESS;
 	}
 
 }

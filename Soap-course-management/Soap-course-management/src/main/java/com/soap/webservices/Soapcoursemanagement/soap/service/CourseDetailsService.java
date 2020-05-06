@@ -12,6 +12,9 @@ import com.soap.webservices.Soapcoursemanagement.soap.bean.Course;
 @Service
 public class CourseDetailsService {
 
+	public enum Status{
+		SUCCESS,FALUER;
+	}
 	private static List<Course> Courses = new ArrayList<>();
 	static {
 		Course courses1 = new Course(1, "Spring", "Chapter1");
@@ -45,16 +48,16 @@ public class CourseDetailsService {
 	}
 
 	// delete courses
-	public int deleteById(int id) {
+	public Status deleteById(int id) {
 		Iterator<Course> iterator = Courses.iterator();
 		while (iterator.hasNext()) {
 			Course course = iterator.next();
 			if (course.getId() == id) {
 				iterator.remove();
-				return 1;
+				return Status.SUCCESS;
 			}
 		}
-		return 0;
+		return Status.FALUER;
 	}
 
 	// updating course & new course
