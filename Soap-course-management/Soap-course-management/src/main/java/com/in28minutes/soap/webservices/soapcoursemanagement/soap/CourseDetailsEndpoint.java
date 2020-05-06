@@ -38,7 +38,14 @@ public class CourseDetailsEndpoint {
 	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
 
 		Course course = service.findById(request.getId());
-
+		if (course == null) {
+			/*
+			 * //custom exception by runtimeException
+			 *  throw new RuntimeException("Invalid CourseID" + request.getId());
+			 */
+			//without using runtime exception we can also use custom exception
+			throw new CourseNotfoundException("Invalid CourseID : " + request.getId());
+		}
 		return mapCourseDetails(course);
 	}
 
@@ -91,7 +98,7 @@ public class CourseDetailsEndpoint {
 	}
 
 	private com.soapwebservice.courses.Status mapstatus(Status status) {
-		if(status==Status.FALUER) {
+		if (status == Status.FALUER) {
 			return com.soapwebservice.courses.Status.FALUER;
 		}
 		return com.soapwebservice.courses.Status.SUCCESS;
